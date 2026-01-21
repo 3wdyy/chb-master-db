@@ -432,6 +432,26 @@
             opacity: 1;
         }
 
+        .hero-card.card-positive {
+            border-top-color: var(--positive);
+        }
+
+        .hero-card.card-positive::before {
+            background: linear-gradient(90deg, var(--positive) 0%, var(--positive-light) 100%);
+        }
+
+        .hero-card.card-negative {
+            border-top-color: var(--negative);
+        }
+
+        .hero-card.card-negative::before {
+            background: linear-gradient(90deg, var(--negative) 0%, var(--negative-light) 100%);
+        }
+
+        .hero-card.card-neutral {
+            border-top-color: var(--neutral);
+        }
+
         .hero-card-label {
             font-size: var(--font-label);
             color: var(--text-muted);
@@ -644,6 +664,22 @@
             box-shadow: var(--shadow-md);
         }
 
+        .insight-row.insight-critical {
+            border-left: 3px solid var(--negative);
+        }
+
+        .insight-row.insight-warning {
+            border-left: 3px solid var(--warning);
+        }
+
+        .insight-row.insight-positive {
+            border-left: 3px solid var(--positive);
+        }
+
+        .insight-row.insight-info {
+            border-left: 3px solid var(--steel-blue);
+        }
+
         .insight-icon {
             font-size: var(--font-body-lg);
             flex-shrink: 0;
@@ -672,13 +708,25 @@
 
         .market-bar-row {
             display: grid;
-            grid-template-columns: 150px 1fr 120px;
+            grid-template-columns: 150px 1fr 100px 100px;
             align-items: center;
             gap: var(--space-md);
             padding: var(--space-md);
             background: var(--white);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .market-bar-row:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .market-bar-value {
+            font-weight: var(--weight-bold);
+            color: var(--navy);
+            text-align: right;
         }
 
         .market-bar-label {
@@ -1771,17 +1819,36 @@
 
                 const variance = getVariance(row, state.comparisonMode);
                 const badgeClass = getBadgeClass(variance, row.Format);
+                const cardClass = `card-${badgeClass}`;
+
+                // Get comparison value for context
+                let comparisonValue = null;
+                let comparisonLabel = '';
+                switch (state.comparisonMode) {
+                    case 'LYTD':
+                        comparisonValue = row.LYTD;
+                        comparisonLabel = 'LYTD';
+                        break;
+                    case 'Target':
+                        comparisonValue = row.Target;
+                        comparisonLabel = 'Target';
+                        break;
+                    case 'LMR12M':
+                        comparisonValue = row.LMR12M;
+                        comparisonLabel = 'LM R12M';
+                        break;
+                }
 
                 return `
-                    <div class="hero-card animate-fade-in-up stagger-${i+1}">
+                    <div class="hero-card ${cardClass} animate-fade-in-up stagger-${i+1}">
                         <div class="hero-card-label">${config.name.toUpperCase()}</div>
                         <div class="hero-card-value">${formatValue(row.YTD, row.Format)}</div>
                         <div class="hero-card-badge ${badgeClass}">
                             ${formatChange(variance, row.Format)} ${getComparisonLabel(state.comparisonMode)}
                         </div>
-                        ${row.Target ? `
+                        ${comparisonValue !== null ? `
                             <div class="hero-card-secondary">
-                                Target: ${formatValue(row.Target, row.Format)}
+                                ${comparisonLabel}: ${formatValue(comparisonValue, row.Format)}
                             </div>
                         ` : ''}
                     </div>
@@ -1794,7 +1861,7 @@
         function renderInsightsPanel(insights) {
             const insightRows = insights.length > 0
                 ? insights.map(insight => `
-                    <div class="insight-row">
+                    <div class="insight-row insight-${insight.severity}">
                         <span class="insight-icon">${insight.icon}</span>
                         <span class="insight-text">${insight.message}</span>
                     </div>
@@ -1934,6 +2001,7 @@
                         <div class="market-bar-container">
                             <div class="market-bar-fill" style="width: ${width}%"></div>
                         </div>
+                        <div class="market-bar-value">${formatValue(row.YTD, row.Format)}</div>
                         <div class="market-bar-badge ${badgeClass}">
                             ${formatChange(variance, row.Format)}
                         </div>
