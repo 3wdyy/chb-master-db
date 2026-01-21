@@ -452,13 +452,31 @@
             border-top-color: var(--neutral);
         }
 
+        .hero-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero-card-icon {
+            color: var(--steel-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-card-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
         .hero-card-label {
             font-size: var(--font-label);
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.8px;
             font-weight: var(--weight-semibold);
-            margin-bottom: var(--space-sm);
         }
 
         .hero-card-value {
@@ -502,6 +520,25 @@
             margin-top: var(--space-sm);
             font-size: var(--font-caption);
             color: var(--text-muted);
+        }
+
+        .hero-card-target {
+            margin-top: var(--space-md);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--font-small);
+        }
+
+        .target-label {
+            color: var(--text-muted);
+        }
+
+        .target-value {
+            font-weight: var(--weight-semibold);
+            color: var(--navy);
         }
 
         /* KPI Table */
@@ -1140,6 +1177,446 @@
             box-shadow: var(--shadow-md);
         }
 
+        /* ============================================================================
+           M-DEPTH MODE STYLES
+           ============================================================================ */
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) 0;
+            margin-bottom: var(--space-md);
+            font-size: var(--font-body);
+        }
+
+        .breadcrumb-item {
+            color: var(--text-muted);
+        }
+
+        .breadcrumb-item.active {
+            color: var(--navy);
+            font-weight: var(--weight-semibold);
+        }
+
+        .breadcrumb-item.clickable {
+            cursor: pointer;
+            color: var(--steel-blue);
+        }
+
+        .breadcrumb-item.clickable:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
+        }
+
+        .breadcrumb-clear {
+            margin-left: auto;
+            background: var(--negative-light);
+            color: var(--negative-dark);
+            border: none;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            font-size: var(--font-caption);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .breadcrumb-clear:hover {
+            background: var(--negative);
+            color: white;
+        }
+
+        /* Summary Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .summary-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .summary-label {
+            font-size: var(--font-caption);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-xs);
+        }
+
+        .summary-value {
+            font-size: var(--font-value-md);
+            font-weight: var(--weight-bold);
+            color: var(--navy);
+        }
+
+        .summary-change {
+            font-size: var(--font-caption);
+            margin-top: var(--space-xs);
+        }
+
+        /* Breakdown Table */
+        .breakdown-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .breakdown-title {
+            font-size: var(--font-h3);
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+        }
+
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .breakdown-table th {
+            background: var(--navy);
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-size: var(--font-caption);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .breakdown-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .breakdown-row:hover {
+            background: var(--light-bg);
+        }
+
+        .breakdown-name {
+            font-weight: var(--weight-semibold);
+            color: var(--navy);
+        }
+
+        .breakdown-value {
+            font-weight: var(--weight-bold);
+        }
+
+        .breakdown-share {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .share-bar-container {
+            width: 80px;
+            height: 8px;
+            background: var(--neutral-light);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .share-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--steel-blue) 0%, var(--navy) 100%);
+            border-radius: var(--radius-sm);
+        }
+
+        .breakdown-variance {
+            font-weight: var(--weight-semibold);
+        }
+
+        .drill-btn {
+            background: var(--steel-blue);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-body);
+            transition: all var(--transition-fast);
+        }
+
+        .drill-btn:hover {
+            background: var(--navy);
+            transform: translateX(2px);
+        }
+
+        /* Funnel */
+        .funnel-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .funnel-title {
+            font-size: var(--font-h3);
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+        }
+
+        .funnel {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .funnel-stage {
+            display: grid;
+            grid-template-columns: 150px 1fr 150px;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .funnel-label {
+            font-weight: var(--weight-semibold);
+            color: var(--navy);
+        }
+
+        .funnel-bar-container {
+            height: 36px;
+            background: var(--neutral-light);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+
+        .funnel-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--steel-blue) 0%, var(--navy) 100%);
+            border-radius: var(--radius-sm);
+            transition: width var(--transition-slow);
+        }
+
+        .funnel-value {
+            font-weight: var(--weight-bold);
+            color: var(--navy);
+            text-align: right;
+        }
+
+        /* Cross-Brand Insights */
+        .crossbrand-insights {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .crossbrand-insights h3 {
+            font-size: var(--font-h3);
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+        }
+
+        .metric-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .metric-card {
+            background: var(--light-bg);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: var(--font-caption);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: var(--space-sm);
+        }
+
+        .metric-value {
+            font-size: var(--font-value-lg);
+            font-weight: var(--weight-bold);
+            color: var(--navy);
+        }
+
+        .metric-change {
+            font-size: var(--font-caption);
+            margin-top: var(--space-xs);
+        }
+
+        /* Segments Grid */
+        .segments-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .segment-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .segment-card h3 {
+            font-size: var(--font-h3);
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Donut Chart */
+        .donut-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .donut-chart {
+            width: 180px;
+            height: 180px;
+        }
+
+        .donut-total-label {
+            font-size: 12px;
+            fill: var(--text-muted);
+        }
+
+        .donut-total-value {
+            font-size: 18px;
+            font-weight: var(--weight-bold);
+            fill: var(--navy);
+        }
+
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--font-body);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* Redemption Metrics */
+        .redemption-metrics {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .redemption-metric {
+            text-align: center;
+            padding: var(--space-md);
+            background: var(--light-bg);
+            border-radius: var(--radius-md);
+        }
+
+        .redemption-label {
+            font-size: var(--font-caption);
+            color: var(--text-muted);
+            margin-bottom: var(--space-xs);
+        }
+
+        .redemption-value {
+            font-size: var(--font-value-md);
+            font-weight: var(--weight-bold);
+            color: var(--navy);
+        }
+
+        .redemption-change {
+            font-size: var(--font-caption);
+            margin-top: var(--space-xs);
+        }
+
+        /* Behavior Metrics */
+        .behavior-metrics {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .behavior-metrics h3 {
+            font-size: var(--font-h3);
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Brand Scorecard */
+        .brand-scorecard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .brand-score-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            border-top: 4px solid var(--steel-blue);
+        }
+
+        .brand-score-icon {
+            color: var(--steel-blue);
+            margin-bottom: var(--space-sm);
+        }
+
+        .brand-score-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .brand-score-label {
+            font-size: var(--font-caption);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: var(--space-xs);
+        }
+
+        .brand-score-value {
+            font-size: var(--font-value-lg);
+            font-weight: var(--weight-bold);
+            color: var(--navy);
+        }
+
+        .brand-score-change {
+            font-size: var(--font-caption);
+            margin-top: var(--space-xs);
+        }
+
+        .brand-kpi-table-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .brand-kpi-table-container h3 {
+            font-size: var(--font-h3);
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+        }
+
         .placeholder-icon {
             font-size: 64px;
             margin-bottom: var(--space-lg);
@@ -1190,20 +1667,35 @@
         const CURRENT_YEAR = 2025;
         const PREVIOUS_YEAR = 2024;
 
-        // KPI Configuration (MUSE only)
+        // KPI Configuration (MUSE only) with SVG icons
+        const KPI_ICONS = {
+            'SLS_TTL': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+            'SLS_PEN': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v10l4.5 4.5"/></svg>',
+            'MBR_TTL': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+            'MBR_NEW': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>',
+            'MBR_RTN': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>',
+            'AVG_ATF': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+            'AVG_AOV': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
+            'PCT_RDM': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+            'PCT_XBP': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>',
+            'PCT_NBA': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+            'AVG_BRD': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>',
+            'PTS_BRN': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>'
+        };
+
         const KPI_CONFIG = {
-            'SLS_TTL': { name: 'Total Sales', format: 'C0', category: 'sales' },
-            'SLS_PEN': { name: 'Sales Penetration', format: 'P4', category: 'sales' },
-            'MBR_TTL': { name: 'Transacting Members', format: 'V0', category: 'members' },
-            'MBR_NEW': { name: 'New Members', format: 'V0', category: 'members' },
-            'MBR_RTN': { name: 'Returning Members', format: 'V0', category: 'members' },
-            'AVG_ATF': { name: 'Average Frequency', format: 'V2', category: 'behavior' },
-            'AVG_AOV': { name: 'Average Order Value', format: 'C0', category: 'behavior' },
-            'PCT_RDM': { name: 'Redeeming Members %', format: 'P4', category: 'loyalty' },
-            'PCT_XBP': { name: 'Cross Brand Plus %', format: 'P4', category: 'crossbrand' },
-            'PCT_NBA': { name: 'New Brand Adopters %', format: 'P4', category: 'crossbrand' },
-            'AVG_BRD': { name: 'Avg Brands Shopped', format: 'V2', category: 'crossbrand' },
-            'PTS_BRN': { name: 'Points Burned Value', format: 'C0', category: 'loyalty' }
+            'SLS_TTL': { name: 'Total Sales', format: 'C0', category: 'sales', icon: KPI_ICONS['SLS_TTL'] },
+            'SLS_PEN': { name: 'Sales Penetration', format: 'P4', category: 'sales', icon: KPI_ICONS['SLS_PEN'] },
+            'MBR_TTL': { name: 'Transacting Members', format: 'V0', category: 'members', icon: KPI_ICONS['MBR_TTL'] },
+            'MBR_NEW': { name: 'New Members', format: 'V0', category: 'members', icon: KPI_ICONS['MBR_NEW'] },
+            'MBR_RTN': { name: 'Returning Members', format: 'V0', category: 'members', icon: KPI_ICONS['MBR_RTN'] },
+            'AVG_ATF': { name: 'Average Frequency', format: 'V2', category: 'behavior', icon: KPI_ICONS['AVG_ATF'] },
+            'AVG_AOV': { name: 'Average Order Value', format: 'C0', category: 'behavior', icon: KPI_ICONS['AVG_AOV'] },
+            'PCT_RDM': { name: 'Redeeming Members %', format: 'P4', category: 'loyalty', icon: KPI_ICONS['PCT_RDM'] },
+            'PCT_XBP': { name: 'Cross Brand Plus %', format: 'P4', category: 'crossbrand', icon: KPI_ICONS['PCT_XBP'] },
+            'PCT_NBA': { name: 'New Brand Adopters %', format: 'P4', category: 'crossbrand', icon: KPI_ICONS['PCT_NBA'] },
+            'AVG_BRD': { name: 'Avg Brands Shopped', format: 'V2', category: 'crossbrand', icon: KPI_ICONS['AVG_BRD'] },
+            'PTS_BRN': { name: 'Points Burned Value', format: 'C0', category: 'loyalty', icon: KPI_ICONS['PTS_BRN'] }
         };
 
         const HERO_KPIS = ['SLS_TTL', 'MBR_TTL', 'PCT_XBP', 'SLS_PEN'];
@@ -1397,7 +1889,7 @@
             // Dashboard mode (C-Overview or M-Depth)
             dashboardMode: 'C-OVERVIEW',     // 'C-OVERVIEW' | 'M-DEPTH'
             comparisonMode: 'LYTD',          // 'LYTD' | 'Target' | 'LMR12M'
-            activeTab: 'scorecard',          // 'scorecard' | 'markets' | 'trends'
+            activeTab: 'scorecard',          // 'scorecard' | 'markets' | 'trends' | 'explorer' | 'crossbrand' | 'segments' | 'branddeep'
             insightsPanelExpanded: true,
             chartType: 'monthly',            // 'monthly' | 'cumulative'
 
@@ -1409,10 +1901,27 @@
             museTrendData: null,
             museFileName: null,
 
+            // P2 Data stores (M-Depth)
+            dimensionalData: null,
+            crossbrandData: null,
+
             // Filters
             selectedMonth: null,
             selectedMarket: 'All Markets',
-            selectedKPI: 'SLS_TTL'
+            selectedKPI: 'SLS_TTL',
+
+            // M-Depth Explorer state
+            drillPath: [],                   // [{dimension: 'Market', value: 'UAE'}, ...]
+            explorerKPI: 'SLS_TTL',
+
+            // M-Depth Cross-Brand state
+            crossbrandMarket: 'All Markets',
+
+            // M-Depth Segments state
+            segmentMarket: 'All Markets',
+
+            // M-Depth Brand Deep Dive state
+            selectedBrand: null
         };
 
         // ============================================================================
@@ -1789,9 +2298,22 @@
 
         function renderTabs() {
             if (state.dashboardMode === 'M-DEPTH') {
-                return `<nav class="nav-tabs">
-                    <button class="tab-btn active">M-Depth Mode</button>
-                </nav>`;
+                return `
+                    <nav class="nav-tabs">
+                        <button class="tab-btn ${state.activeTab === 'explorer' ? 'active' : ''}" data-tab="explorer">
+                            Dimension Explorer
+                        </button>
+                        <button class="tab-btn ${state.activeTab === 'crossbrand' ? 'active' : ''}" data-tab="crossbrand">
+                            Cross-Brand
+                        </button>
+                        <button class="tab-btn ${state.activeTab === 'segments' ? 'active' : ''}" data-tab="segments">
+                            Segments
+                        </button>
+                        <button class="tab-btn ${state.activeTab === 'branddeep' ? 'active' : ''}" data-tab="branddeep">
+                            Brand Deep Dive
+                        </button>
+                    </nav>
+                `;
             }
 
             return `
@@ -1811,7 +2333,13 @@
 
         function renderContent() {
             if (state.dashboardMode === 'M-DEPTH') {
-                return renderMDepthPlaceholder();
+                switch (state.activeTab) {
+                    case 'explorer': return renderExplorer();
+                    case 'crossbrand': return renderCrossBrand();
+                    case 'segments': return renderSegments();
+                    case 'branddeep': return renderBrandDeepDive();
+                    default: return renderExplorer();
+                }
             }
 
             switch (state.activeTab) {
@@ -1820,6 +2348,487 @@
                 case 'trends': return renderTrends();
                 default: return renderScorecard();
             }
+        }
+
+        // ============================================================================
+        // M-DEPTH MODE RENDER FUNCTIONS
+        // ============================================================================
+
+        function renderExplorer() {
+            const data = getData();
+            const month = state.selectedMonth || getLatestMonth(data);
+
+            return `
+                ${renderBreadcrumb()}
+                ${renderExplorerFilters()}
+                <div class="section-header">
+                    <div>
+                        <div class="section-title">Dimension Explorer</div>
+                        <div class="section-subtitle">Drill down through dimensions | ${month}</div>
+                    </div>
+                </div>
+                ${renderExplorerSummaryCards(data, month)}
+                ${renderBreakdownTable(data, month)}
+            `;
+        }
+
+        function renderBreadcrumb() {
+            if (state.drillPath.length === 0) {
+                return `
+                    <div class="breadcrumb">
+                        <span class="breadcrumb-item active">All Data</span>
+                    </div>
+                `;
+            }
+
+            const items = state.drillPath.map((step, i) => `
+                <span class="breadcrumb-item clickable" data-level="${i}">${step.value}</span>
+                <span class="breadcrumb-separator">›</span>
+            `).join('');
+
+            return `
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item clickable" data-level="-1">All Data</span>
+                    <span class="breadcrumb-separator">›</span>
+                    ${items}
+                    <button class="breadcrumb-clear" onclick="handleClearDrillPath()">Clear</button>
+                </div>
+            `;
+        }
+
+        function renderExplorerFilters() {
+            const data = getData();
+            const kpis = getKPIs(data);
+
+            return `
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>KPI</label>
+                        <select class="filter-select" id="explorerKPISelect">
+                            ${kpis.map(k => `
+                                <option value="${k}" ${k === state.explorerKPI ? 'selected' : ''}>${KPI_CONFIG[k]?.name || k}</option>
+                            `).join('')}
+                        </select>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderExplorerSummaryCards(data, month) {
+            // Get filtered data based on drill path
+            let filteredData = data.filter(r => r.Month === month);
+            for (const step of state.drillPath) {
+                filteredData = filteredData.filter(r => r[step.dimension] === step.value);
+            }
+
+            // Get totals for key KPIs
+            const heroKPIs = ['SLS_TTL', 'MBR_TTL', 'AVG_ATF', 'AVG_AOV'];
+            const cards = heroKPIs.map(kpiKey => {
+                const kpiData = filteredData.find(r => r.Key === kpiKey);
+                const config = KPI_CONFIG[kpiKey];
+
+                if (!kpiData) {
+                    return `<div class="summary-card"><div class="summary-label">${config?.name || kpiKey}</div><div class="summary-value">—</div></div>`;
+                }
+
+                return `
+                    <div class="summary-card">
+                        <div class="summary-label">${config.name}</div>
+                        <div class="summary-value">${formatValue(kpiData.YTD, kpiData.Format)}</div>
+                        <div class="summary-change ${getBadgeClass(kpiData.vs_LYTD, kpiData.Format)}">${formatChange(kpiData.vs_LYTD, kpiData.Format)} vs LY</div>
+                    </div>
+                `;
+            }).join('');
+
+            return `<div class="summary-cards">${cards}</div>`;
+        }
+
+        function renderBreakdownTable(data, month) {
+            // Determine next dimension to drill into
+            const dimensionOrder = ['Market', 'Brand', 'Channel', 'Store_Type'];
+            const currentDepth = state.drillPath.length;
+            const nextDimension = dimensionOrder[currentDepth] || null;
+
+            if (!nextDimension) {
+                return `<div class="insights-empty">Maximum drill depth reached.</div>`;
+            }
+
+            // Get filtered data based on current drill path
+            let filteredData = data.filter(r => r.Month === month && r.Key === state.explorerKPI);
+            for (const step of state.drillPath) {
+                filteredData = filteredData.filter(r => r[step.dimension] === step.value);
+            }
+
+            // Get unique values for next dimension
+            const values = [...new Set(filteredData.map(r => r[nextDimension]))].filter(v => v && v !== 'All Markets');
+
+            if (values.length === 0) {
+                return `<div class="insights-empty">No breakdown data available for ${nextDimension}.</div>`;
+            }
+
+            // Calculate totals for parent
+            const parentTotal = filteredData.reduce((sum, r) => sum + (r.YTD || 0), 0);
+
+            const rows = values.map(value => {
+                const rowData = filteredData.find(r => r[nextDimension] === value);
+                if (!rowData) return '';
+
+                const share = safeDiv(rowData.YTD, parentTotal, 0);
+                const vsLYClass = getBadgeClass(rowData.vs_LYTD, rowData.Format);
+
+                return `
+                    <tr class="breakdown-row" data-dimension="${nextDimension}" data-value="${value}">
+                        <td class="breakdown-name">${value}</td>
+                        <td class="breakdown-value">${formatValue(rowData.YTD, rowData.Format)}</td>
+                        <td class="breakdown-share">
+                            <div class="share-bar-container">
+                                <div class="share-bar" style="width: ${share * 100}%"></div>
+                            </div>
+                            <span>${(share * 100).toFixed(1)}%</span>
+                        </td>
+                        <td class="breakdown-variance ${vsLYClass}">${formatChange(rowData.vs_LYTD, rowData.Format)}</td>
+                        <td class="breakdown-drill">
+                            <button class="drill-btn" data-dimension="${nextDimension}" data-value="${value}">→</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            return `
+                <div class="breakdown-container">
+                    <h3 class="breakdown-title">Breakdown by ${nextDimension}</h3>
+                    <table class="breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>${nextDimension}</th>
+                                <th>${KPI_CONFIG[state.explorerKPI]?.name || state.explorerKPI}</th>
+                                <th>Share</th>
+                                <th>vs LY</th>
+                                <th>Drill</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderCrossBrand() {
+            const data = getData();
+            const month = state.selectedMonth || getLatestMonth(data);
+            const markets = getMarkets(data);
+
+            return `
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Market</label>
+                        <select class="filter-select" id="crossbrandMarketSelect">
+                            ${markets.map(m => `
+                                <option value="${m}" ${m === state.crossbrandMarket ? 'selected' : ''}>${m}</option>
+                            `).join('')}
+                        </select>
+                    </div>
+                </div>
+                <div class="section-header">
+                    <div>
+                        <div class="section-title">Cross-Brand Analysis</div>
+                        <div class="section-subtitle">Member shopping behavior across brands | ${state.crossbrandMarket}</div>
+                    </div>
+                </div>
+                ${renderCrossBrandFunnel(data, month)}
+                ${renderCrossBrandInsights(data, month)}
+            `;
+        }
+
+        function renderCrossBrandFunnel(data, month) {
+            // Get cross-brand data for selected market
+            const marketData = data.filter(r => r.Month === month && r.Market === state.crossbrandMarket);
+
+            const totalMembers = marketData.find(r => r.Key === 'MBR_TTL')?.YTD || 0;
+            const xbpPct = marketData.find(r => r.Key === 'PCT_XBP')?.YTD || 0;
+            const xbMembers = Math.round(totalMembers * xbpPct);
+
+            const stages = [
+                { label: 'Total Members', count: totalMembers, pct: 1.0 },
+                { label: '2+ Brands (XBP)', count: xbMembers, pct: xbpPct },
+                { label: '3+ Brands', count: Math.round(xbMembers * 0.4), pct: xbpPct * 0.4 },
+                { label: '4+ Brands', count: Math.round(xbMembers * 0.12), pct: xbpPct * 0.12 }
+            ];
+
+            return `
+                <div class="funnel-container">
+                    <h3 class="funnel-title">Cross-Brand Funnel</h3>
+                    <div class="funnel">
+                        ${stages.map(stage => `
+                            <div class="funnel-stage">
+                                <div class="funnel-label">${stage.label}</div>
+                                <div class="funnel-bar-container">
+                                    <div class="funnel-bar" style="width: ${stage.pct * 100}%"></div>
+                                </div>
+                                <div class="funnel-value">${formatValue(stage.count, 'V0')} (${(stage.pct * 100).toFixed(1)}%)</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCrossBrandInsights(data, month) {
+            const marketData = data.filter(r => r.Month === month && r.Market === state.crossbrandMarket);
+            const xbpData = marketData.find(r => r.Key === 'PCT_XBP');
+            const nbaData = marketData.find(r => r.Key === 'PCT_NBA');
+            const avgBrdData = marketData.find(r => r.Key === 'AVG_BRD');
+
+            return `
+                <div class="crossbrand-insights">
+                    <h3>Key Metrics</h3>
+                    <div class="metric-cards">
+                        <div class="metric-card">
+                            <div class="metric-label">Cross-Brand Rate</div>
+                            <div class="metric-value">${formatValue(xbpData?.YTD, 'P4')}</div>
+                            <div class="metric-change ${getBadgeClass(xbpData?.vs_LYTD, 'P4')}">${formatChange(xbpData?.vs_LYTD, 'P4')} vs LY</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">New Brand Adopters</div>
+                            <div class="metric-value">${formatValue(nbaData?.YTD, 'P4')}</div>
+                            <div class="metric-change ${getBadgeClass(nbaData?.vs_LYTD, 'P4')}">${formatChange(nbaData?.vs_LYTD, 'P4')} vs LY</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Avg Brands Shopped</div>
+                            <div class="metric-value">${formatValue(avgBrdData?.YTD, 'V2')}</div>
+                            <div class="metric-change ${getBadgeClass(avgBrdData?.vs_LYTD, 'V2')}">${formatChange(avgBrdData?.vs_LYTD, 'V2')} vs LY</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSegments() {
+            const data = getData();
+            const month = state.selectedMonth || getLatestMonth(data);
+            const markets = getMarkets(data);
+
+            return `
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Market</label>
+                        <select class="filter-select" id="segmentMarketSelect">
+                            ${markets.map(m => `
+                                <option value="${m}" ${m === state.segmentMarket ? 'selected' : ''}>${m}</option>
+                            `).join('')}
+                        </select>
+                    </div>
+                </div>
+                <div class="section-header">
+                    <div>
+                        <div class="section-title">Member Segmentation</div>
+                        <div class="section-subtitle">Analyze member composition | ${state.segmentMarket}</div>
+                    </div>
+                </div>
+                <div class="segments-grid">
+                    ${renderNewReturningDonut(data, month)}
+                    ${renderRedemptionMetrics(data, month)}
+                </div>
+                ${renderMemberMetrics(data, month)}
+            `;
+        }
+
+        function renderNewReturningDonut(data, month) {
+            const marketData = data.filter(r => r.Month === month && r.Market === state.segmentMarket);
+            const newMembers = marketData.find(r => r.Key === 'MBR_NEW')?.YTD || 0;
+            const returnMembers = marketData.find(r => r.Key === 'MBR_RTN')?.YTD || 0;
+            const total = newMembers + returnMembers;
+            const newPct = safeDiv(newMembers, total, 0);
+            const retPct = safeDiv(returnMembers, total, 0);
+
+            // SVG donut chart
+            const circumference = 2 * Math.PI * 80;
+
+            return `
+                <div class="segment-card">
+                    <h3>New vs Returning Members</h3>
+                    <div class="donut-container">
+                        <svg class="donut-chart" viewBox="0 0 200 200">
+                            <circle class="donut-bg" cx="100" cy="100" r="80" fill="none" stroke="var(--border-light)" stroke-width="24"/>
+                            <circle class="donut-segment donut-new" cx="100" cy="100" r="80" fill="none"
+                                    stroke="var(--steel-blue)" stroke-width="24"
+                                    stroke-dasharray="${newPct * circumference} ${circumference}"
+                                    transform="rotate(-90 100 100)"/>
+                            <circle class="donut-segment donut-returning" cx="100" cy="100" r="80" fill="none"
+                                    stroke="var(--navy)" stroke-width="24"
+                                    stroke-dasharray="${retPct * circumference} ${circumference}"
+                                    stroke-dashoffset="-${newPct * circumference}"
+                                    transform="rotate(-90 100 100)"/>
+                            <text x="100" y="95" text-anchor="middle" class="donut-total-label">Total</text>
+                            <text x="100" y="115" text-anchor="middle" class="donut-total-value">${formatValue(total, 'V0')}</text>
+                        </svg>
+                    </div>
+                    <div class="donut-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--steel-blue)"></span>
+                            New: ${formatValue(newMembers, 'V0')} (${(newPct * 100).toFixed(1)}%)
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background: var(--navy)"></span>
+                            Returning: ${formatValue(returnMembers, 'V0')} (${(retPct * 100).toFixed(1)}%)
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderRedemptionMetrics(data, month) {
+            const marketData = data.filter(r => r.Month === month && r.Market === state.segmentMarket);
+            const rdmData = marketData.find(r => r.Key === 'PCT_RDM');
+            const ptsBrnData = marketData.find(r => r.Key === 'PTS_BRN');
+
+            return `
+                <div class="segment-card">
+                    <h3>Redemption Activity</h3>
+                    <div class="redemption-metrics">
+                        <div class="redemption-metric">
+                            <div class="redemption-label">Redeeming Members</div>
+                            <div class="redemption-value">${formatValue(rdmData?.YTD, 'P4')}</div>
+                            <div class="redemption-change ${getBadgeClass(rdmData?.vs_LYTD, 'P4')}">${formatChange(rdmData?.vs_LYTD, 'P4')} vs LY</div>
+                        </div>
+                        <div class="redemption-metric">
+                            <div class="redemption-label">Points Burned Value</div>
+                            <div class="redemption-value">${formatValue(ptsBrnData?.YTD, 'C0')}</div>
+                            <div class="redemption-change ${getBadgeClass(ptsBrnData?.vs_LYTD, 'C0')}">${formatChange(ptsBrnData?.vs_LYTD, 'C0')} vs LY</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMemberMetrics(data, month) {
+            const marketData = data.filter(r => r.Month === month && r.Market === state.segmentMarket);
+            const atfData = marketData.find(r => r.Key === 'AVG_ATF');
+            const aovData = marketData.find(r => r.Key === 'AVG_AOV');
+
+            return `
+                <div class="behavior-metrics">
+                    <h3>Member Behavior</h3>
+                    <div class="metric-cards">
+                        <div class="metric-card">
+                            <div class="metric-label">Average Frequency</div>
+                            <div class="metric-value">${formatValue(atfData?.YTD, 'V2')}</div>
+                            <div class="metric-change ${getBadgeClass(atfData?.vs_LYTD, 'V2')}">${formatChange(atfData?.vs_LYTD, 'V2')} vs LY</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Average Order Value</div>
+                            <div class="metric-value">${formatValue(aovData?.YTD, 'C0')}</div>
+                            <div class="metric-change ${getBadgeClass(aovData?.vs_LYTD, 'C0')}">${formatChange(aovData?.vs_LYTD, 'C0')} vs LY</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderBrandDeepDive() {
+            const data = getData();
+            const month = state.selectedMonth || getLatestMonth(data);
+            const markets = getMarkets(data).filter(m => m !== 'All Markets');
+
+            // For now, use markets as "brands" since we don't have brand-level data
+            const brands = markets;
+
+            return `
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>Select Market/Brand</label>
+                        <select class="filter-select" id="brandSelect">
+                            <option value="">-- Select --</option>
+                            ${brands.map(b => `
+                                <option value="${b}" ${b === state.selectedBrand ? 'selected' : ''}>${b}</option>
+                            `).join('')}
+                        </select>
+                    </div>
+                </div>
+                <div class="section-header">
+                    <div>
+                        <div class="section-title">Brand Deep Dive</div>
+                        <div class="section-subtitle">${state.selectedBrand || 'Select a brand to analyze'}</div>
+                    </div>
+                </div>
+                ${state.selectedBrand ? renderBrandScorecard(data, month) : renderBrandPlaceholder()}
+            `;
+        }
+
+        function renderBrandPlaceholder() {
+            return `
+                <div class="placeholder-panel animate-fade-in">
+                    <div class="placeholder-icon">📊</div>
+                    <h2 class="placeholder-title">Select a Brand</h2>
+                    <p class="placeholder-text">Choose a brand from the dropdown above to view detailed analytics.</p>
+                </div>
+            `;
+        }
+
+        function renderBrandScorecard(data, month) {
+            const brandData = data.filter(r => r.Month === month && r.Market === state.selectedBrand);
+
+            const kpis = ['SLS_TTL', 'MBR_TTL', 'AVG_ATF', 'AVG_AOV'];
+            const cards = kpis.map(kpiKey => {
+                const row = brandData.find(r => r.Key === kpiKey);
+                const config = KPI_CONFIG[kpiKey];
+
+                if (!row) return '';
+
+                const badgeClass = getBadgeClass(row.vs_LYTD, row.Format);
+
+                return `
+                    <div class="brand-score-card">
+                        <div class="brand-score-icon">${config.icon}</div>
+                        <div class="brand-score-label">${config.name}</div>
+                        <div class="brand-score-value">${formatValue(row.YTD, row.Format)}</div>
+                        <div class="brand-score-change ${badgeClass}">${formatChange(row.vs_LYTD, row.Format)} vs LY</div>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="brand-scorecard">${cards}</div>
+                ${renderBrandKPITable(brandData)}
+            `;
+        }
+
+        function renderBrandKPITable(brandData) {
+            const rows = SCORECARD_KPIS.map(kpiKey => {
+                const row = brandData.find(r => r.Key === kpiKey);
+                const config = KPI_CONFIG[kpiKey];
+
+                if (!row) return '';
+
+                const vsTargetClass = getBadgeClass(row.vs_Target, row.Format);
+                const vsLYClass = getBadgeClass(row.vs_LYTD, row.Format);
+
+                return `
+                    <tr class="kpi-row">
+                        <td class="kpi-name">${config.name}</td>
+                        <td class="kpi-value">${formatValue(row.YTD, row.Format)}</td>
+                        <td class="kpi-change ${vsTargetClass}">${formatChange(row.vs_Target, row.Format)}</td>
+                        <td class="kpi-change ${vsLYClass}">${formatChange(row.vs_LYTD, row.Format)}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            return `
+                <div class="brand-kpi-table-container">
+                    <h3>All KPIs</h3>
+                    <table class="kpi-table">
+                        <thead>
+                            <tr>
+                                <th>KPI</th>
+                                <th>YTD</th>
+                                <th>vs Target</th>
+                                <th>vs LY</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+            `;
         }
 
         function renderMDepthPlaceholder() {
@@ -1928,14 +2937,18 @@
 
                 return `
                     <div class="hero-card ${cardClass} animate-fade-in-up stagger-${i+1}">
-                        <div class="hero-card-label">${config.name.toUpperCase()}</div>
+                        <div class="hero-card-header">
+                            <span class="hero-card-icon">${config.icon || ''}</span>
+                            <span class="hero-card-label">${config.name.toUpperCase()}</span>
+                        </div>
                         <div class="hero-card-value">${formatValue(row.YTD, row.Format)}</div>
                         <div class="hero-card-badge ${badgeClass}">
                             ${formatChange(variance, row.Format)} ${getComparisonLabel(state.comparisonMode)}
                         </div>
                         ${comparisonValue !== null ? `
-                            <div class="hero-card-secondary">
-                                ${comparisonLabel}: ${formatValue(comparisonValue, row.Format)}
+                            <div class="hero-card-target">
+                                <span class="target-label">${comparisonLabel}:</span>
+                                <span class="target-value">${formatValue(comparisonValue, row.Format)}</span>
                             </div>
                         ` : ''}
                     </div>
@@ -2471,7 +3484,74 @@
 
             // Chart tooltips
             attachChartTooltips();
+
+            // M-Depth: Explorer KPI select
+            const explorerKPISelect = document.getElementById('explorerKPISelect');
+            if (explorerKPISelect) {
+                explorerKPISelect.onchange = () => {
+                    state.explorerKPI = explorerKPISelect.value;
+                    render();
+                };
+            }
+
+            // M-Depth: Cross-brand market select
+            const crossbrandMarketSelect = document.getElementById('crossbrandMarketSelect');
+            if (crossbrandMarketSelect) {
+                crossbrandMarketSelect.onchange = () => {
+                    state.crossbrandMarket = crossbrandMarketSelect.value;
+                    render();
+                };
+            }
+
+            // M-Depth: Segment market select
+            const segmentMarketSelect = document.getElementById('segmentMarketSelect');
+            if (segmentMarketSelect) {
+                segmentMarketSelect.onchange = () => {
+                    state.segmentMarket = segmentMarketSelect.value;
+                    render();
+                };
+            }
+
+            // M-Depth: Brand select
+            const brandSelect = document.getElementById('brandSelect');
+            if (brandSelect) {
+                brandSelect.onchange = () => {
+                    state.selectedBrand = brandSelect.value || null;
+                    render();
+                };
+            }
+
+            // M-Depth: Drill buttons
+            document.querySelectorAll('.drill-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const dimension = btn.dataset.dimension;
+                    const value = btn.dataset.value;
+                    if (dimension && value) {
+                        state.drillPath.push({ dimension, value });
+                        render();
+                    }
+                };
+            });
+
+            // M-Depth: Breadcrumb clicks
+            document.querySelectorAll('.breadcrumb-item.clickable').forEach(item => {
+                item.onclick = () => {
+                    const level = parseInt(item.dataset.level);
+                    if (level === -1) {
+                        state.drillPath = [];
+                    } else {
+                        state.drillPath = state.drillPath.slice(0, level + 1);
+                    }
+                    render();
+                };
+            });
         }
+
+        // Global function for breadcrumb clear
+        window.handleClearDrillPath = function() {
+            state.drillPath = [];
+            render();
+        };
 
         function attachChartTooltips() {
             const tooltip = document.getElementById('chartTooltip');
