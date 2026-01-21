@@ -1,0 +1,23 @@
+Refresh_Date,Month,Market,Brand,Channel,Store_Type,Member_Tier,Member_Type,Key,Value,vs_LYTD,Share_of_Parent
+2026-01-20,12 - Dec,United Arab Emirates,Level Shoes,INSTORE,Flagship,Gold,Returning,SLS_TTL,18234567,0.1521,0.348
+2026-01-20,12 - Dec,United Arab Emirates,Level Shoes,INSTORE,Flagship,Gold,Returning,MBR_TTL,52345,0.0891,0.294
+2026-01-20,12 - Dec,United Arab Emirates,Level Shoes,INSTORE,Standard,Silver,New,SLS_TTL,8234567,0.1234,0.157
+2026-01-20,12 - Dec,United Arab Emirates,Level Shoes,ECOMMERCE,Online,Bronze,New,SLS_TTL,5678901,0.2345,0.108
+2026-01-20,12 - Dec,United Arab Emirates,Faces,INSTORE,Flagship,Gold,Returning,SLS_TTL,12123456,0.0823,0.231
+2026-01-20,12 - Dec,United Arab Emirates,Faces,INSTORE,Standard,Silver,Returning,SLS_TTL,6234567,-0.0234,0.119
+2026-01-20,12 - Dec,United Arab Emirates,Faces,ECOMMERCE,Online,Bronze,New,SLS_TTL,3456789,0.1567,0.066
+2026-01-20,12 - Dec,United Arab Emirates,Swarovski,INSTORE,Flagship,Gold,Returning,SLS_TTL,9876543,0.0567,0.188
+2026-01-20,12 - Dec,United Arab Emirates,Swarovski,ECOMMERCE,Online,Silver,New,SLS_TTL,4321098,-0.0321,0.082
+2026-01-20,12 - Dec,Saudi Arabia,Level Shoes,INSTORE,Flagship,Gold,Returning,SLS_TTL,14567890,-0.0234,0.382
+2026-01-20,12 - Dec,Saudi Arabia,Level Shoes,INSTORE,Standard,Silver,New,SLS_TTL,6789012,0.0456,0.178
+2026-01-20,12 - Dec,Saudi Arabia,Faces,INSTORE,Flagship,Gold,Returning,SLS_TTL,8901234,-0.0567,0.233
+2026-01-20,12 - Dec,Saudi Arabia,Faces,ECOMMERCE,Online,Bronze,New,SLS_TTL,3456789,0.0789,0.091
+2026-01-20,12 - Dec,Saudi Arabia,Swarovski,INSTORE,Standard,Silver,Returning,SLS_TTL,4567890,-0.0123,0.120
+2026-01-20,12 - Dec,Kuwait,Level Shoes,INSTORE,Flagship,Gold,Returning,SLS_TTL,8765432,0.0654,0.408
+2026-01-20,12 - Dec,Kuwait,Level Shoes,ECOMMERCE,Online,Silver,New,SLS_TTL,3456789,0.1234,0.161
+2026-01-20,12 - Dec,Kuwait,Faces,INSTORE,Standard,Bronze,Returning,SLS_TTL,5678901,0.0456,0.265
+2026-01-20,12 - Dec,Kuwait,Swarovski,INSTORE,Flagship,Gold,New,SLS_TTL,3567890,0.0789,0.166
+2026-01-20,12 - Dec,Bahrain,Level Shoes,INSTORE,Flagship,Gold,Returning,SLS_TTL,5678901,0.8234,0.420
+2026-01-20,12 - Dec,Bahrain,Level Shoes,ECOMMERCE,Online,Bronze,New,SLS_TTL,2345678,1.2345,0.173
+2026-01-20,12 - Dec,Bahrain,Faces,INSTORE,Standard,Silver,Returning,SLS_TTL,3456789,0.5678,0.255
+2026-01-20,12 - Dec,Bahrain,Swarovski,INSTORE,Flagship,Gold,New,SLS_TTL,2049498,0.4567,0.151
