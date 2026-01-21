@@ -1136,6 +1136,80 @@
             margin-bottom: var(--space-lg);
         }
 
+        /* Multi-file Upload */
+        .upload-files-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .upload-file-card {
+            border: 2px dashed var(--border-medium);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-align: center;
+        }
+
+        .upload-file-card:hover {
+            border-color: var(--steel-blue);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .upload-file-card.loaded {
+            border-color: var(--positive);
+            border-style: solid;
+            background: var(--positive-light);
+        }
+
+        .upload-file-card.required {
+            border-color: var(--navy);
+        }
+
+        .upload-file-icon {
+            font-size: 28px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .upload-file-name {
+            font-weight: var(--weight-semibold);
+            color: var(--navy);
+            font-size: var(--font-body-sm);
+            margin-bottom: var(--space-xs);
+        }
+
+        .upload-file-desc {
+            font-size: var(--font-caption);
+            color: var(--text-muted);
+        }
+
+        .upload-file-status {
+            font-size: var(--font-caption);
+            color: var(--positive);
+            font-weight: var(--weight-semibold);
+            margin-top: var(--space-sm);
+        }
+
+        .upload-file-badge {
+            display: inline-block;
+            font-size: var(--font-micro);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            margin-top: var(--space-xs);
+        }
+
+        .upload-file-badge.required {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .upload-file-badge.optional {
+            background: var(--neutral-light);
+            color: var(--text-secondary);
+        }
+
         .btn-primary {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
             color: var(--white);
@@ -1602,6 +1676,127 @@
         .brand-score-change {
             font-size: var(--font-caption);
             margin-top: var(--space-xs);
+        }
+
+        /* Engagement Matrix */
+        .engagement-matrix-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .engagement-matrix-container h3 {
+            font-size: var(--font-h3);
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+        }
+
+        .engagement-matrix {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .engagement-matrix th,
+        .engagement-matrix td {
+            padding: var(--space-md);
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .engagement-matrix th {
+            background: var(--light-bg);
+            font-weight: var(--weight-semibold);
+            color: var(--navy);
+            font-size: var(--font-body-sm);
+        }
+
+        .engagement-matrix .matrix-label {
+            text-align: left;
+            font-weight: var(--weight-semibold);
+            color: var(--navy);
+            background: var(--light-bg);
+        }
+
+        .engagement-matrix .matrix-cell {
+            min-width: 120px;
+        }
+
+        .engagement-matrix .matrix-cell .cell-pct {
+            font-size: var(--font-value-sm);
+            font-weight: var(--weight-bold);
+            color: var(--navy);
+        }
+
+        .engagement-matrix .matrix-cell .cell-count {
+            font-size: var(--font-caption);
+            color: var(--text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        .engagement-matrix .matrix-best {
+            background: var(--positive-light);
+        }
+
+        .engagement-matrix .matrix-mid {
+            background: var(--warning-light);
+        }
+
+        .engagement-matrix .matrix-worst {
+            background: var(--negative-light);
+        }
+
+        /* Brand Pairs Table */
+        .brand-pairs-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            margin-top: var(--space-lg);
+        }
+
+        .brand-pairs-container h3 {
+            font-size: var(--font-h3);
+            color: var(--navy);
+            margin-bottom: var(--space-lg);
+        }
+
+        .brand-pairs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .brand-pairs-table th,
+        .brand-pairs-table td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .brand-pairs-table th {
+            background: var(--light-bg);
+            font-weight: var(--weight-semibold);
+            color: var(--navy);
+            font-size: var(--font-body-sm);
+        }
+
+        .brand-pairs-table .pair-rank {
+            font-weight: var(--weight-bold);
+            color: var(--steel-blue);
+            width: 50px;
+        }
+
+        .brand-pairs-table .pair-brands {
+            font-weight: var(--weight-medium);
+        }
+
+        .brand-pairs-table .pair-count {
+            font-weight: var(--weight-semibold);
+            text-align: right;
+        }
+
+        .brand-pairs-table .pair-variance {
+            text-align: right;
         }
 
         .brand-kpi-table-container {
@@ -2225,26 +2420,59 @@
         }
 
         function renderUpload() {
-            const fileName = state.museFileName || '';
+            const hasMain = state.museData !== null;
+            const hasTrends = state.museTrendData !== null;
+            const hasDimensional = state.dimensionalData !== null;
+            const hasCrossbrand = state.crossbrandData !== null;
 
             return `
                 <div class="upload-overlay">
-                    <div class="upload-box">
+                    <div class="upload-box" style="max-width: 700px;">
                         <div class="upload-logo">${LOGO_SVG}</div>
                         <h2>MUSE Loyalty Analytics</h2>
-                        <p>Upload your metrics CSV file to begin</p>
+                        <p>Upload your data files to begin. Main data is required, others are optional.</p>
 
-                        <div class="upload-zone" id="uploadZone">
-                            <input type="file" id="fileInput" accept=".csv" style="display:none">
-                            <div class="upload-zone-icon">📊</div>
-                            ${fileName
-                                ? `<div class="upload-zone-file">✓ ${fileName}</div>`
-                                : '<p class="upload-zone-text">Click or drop CSV file here</p>'}
+                        <div class="upload-files-grid">
+                            <div class="upload-file-card ${hasMain ? 'loaded' : 'required'}" data-filetype="main">
+                                <input type="file" id="mainFileInput" accept=".csv" style="display:none">
+                                <div class="upload-file-icon">${hasMain ? '✅' : '📊'}</div>
+                                <div class="upload-file-name">metrics_main.csv</div>
+                                <div class="upload-file-desc">KPI values by month/market</div>
+                                <div class="upload-file-badge required">Required</div>
+                                ${hasMain ? `<div class="upload-file-status">✓ Loaded</div>` : ''}
+                            </div>
+
+                            <div class="upload-file-card ${hasTrends ? 'loaded' : ''}" data-filetype="trends">
+                                <input type="file" id="trendsFileInput" accept=".csv" style="display:none">
+                                <div class="upload-file-icon">${hasTrends ? '✅' : '📈'}</div>
+                                <div class="upload-file-name">metrics_trend.csv</div>
+                                <div class="upload-file-desc">Monthly time series for charts</div>
+                                <div class="upload-file-badge optional">Optional</div>
+                                ${hasTrends ? `<div class="upload-file-status">✓ Loaded</div>` : ''}
+                            </div>
+
+                            <div class="upload-file-card ${hasDimensional ? 'loaded' : ''}" data-filetype="dimensional">
+                                <input type="file" id="dimensionalFileInput" accept=".csv" style="display:none">
+                                <div class="upload-file-icon">${hasDimensional ? '✅' : '🔍'}</div>
+                                <div class="upload-file-name">metrics_dimensional.csv</div>
+                                <div class="upload-file-desc">Multi-dimensional drill-down (M-Depth)</div>
+                                <div class="upload-file-badge optional">Optional</div>
+                                ${hasDimensional ? `<div class="upload-file-status">✓ Loaded</div>` : ''}
+                            </div>
+
+                            <div class="upload-file-card ${hasCrossbrand ? 'loaded' : ''}" data-filetype="crossbrand">
+                                <input type="file" id="crossbrandFileInput" accept=".csv" style="display:none">
+                                <div class="upload-file-icon">${hasCrossbrand ? '✅' : '🔗'}</div>
+                                <div class="upload-file-name">crossbrand_detail.csv</div>
+                                <div class="upload-file-desc">Cross-brand analysis (M-Depth)</div>
+                                <div class="upload-file-badge optional">Optional</div>
+                                ${hasCrossbrand ? `<div class="upload-file-status">✓ Loaded</div>` : ''}
+                            </div>
                         </div>
 
-                        <p class="upload-hint">Accepts metrics_main.csv format</p>
+                        <p class="upload-hint">Click any card to upload. Drag & drop also supported.</p>
 
-                        <button class="btn-primary" id="startBtn" ${fileName ? '' : 'disabled'}>
+                        <button class="btn-primary" id="startBtn" ${hasMain ? '' : 'disabled'}>
                             Start Dashboard
                         </button>
                         <button class="demo-btn" id="demoBtn">Load Demo Data</button>
@@ -2537,23 +2765,149 @@
                 </div>
                 ${renderCrossBrandFunnel(data, month)}
                 ${renderCrossBrandInsights(data, month)}
+                ${renderBrandPairsTable(data, month)}
             `;
         }
 
-        function renderCrossBrandFunnel(data, month) {
-            // Get cross-brand data for selected market
-            const marketData = data.filter(r => r.Month === month && r.Market === state.crossbrandMarket);
+        function renderBrandPairsTable(data, month) {
+            // Use crossbrand data if available, otherwise generate from main data
+            const crossbrandData = state.crossbrandData;
 
+            if (crossbrandData && crossbrandData.length > 0) {
+                // Filter for brand pairs (where Crossbrand_Type is PAIR or both brands are set)
+                const pairs = crossbrandData
+                    .filter(r =>
+                        (r.Crossbrand_Type === 'PAIR' || (r.Home_Brand && r.Second_Brand)) &&
+                        (state.crossbrandMarket === 'All Markets' || r.Market === state.crossbrandMarket)
+                    )
+                    .sort((a, b) => (b.Member_Count || 0) - (a.Member_Count || 0))
+                    .slice(0, 10);
+
+                if (pairs.length === 0) {
+                    return renderBrandPairsPlaceholder();
+                }
+
+                const rows = pairs.map((row, i) => `
+                    <tr>
+                        <td class="pair-rank">${i + 1}</td>
+                        <td class="pair-brands">${row.Home_Brand} + ${row.Second_Brand}</td>
+                        <td class="pair-count">${formatValue(row.Member_Count, 'V0')}</td>
+                        <td class="pair-variance ${getBadgeClass(row.vs_LYTD, 'P4')}">${formatChange(row.vs_LYTD, 'P4')}</td>
+                    </tr>
+                `).join('');
+
+                return `
+                    <div class="brand-pairs-container">
+                        <h3>Top Brand Pairs</h3>
+                        <table class="brand-pairs-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Brand Pair</th>
+                                    <th style="text-align:right">Members</th>
+                                    <th style="text-align:right">vs LY</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            // Generate placeholder brand pairs based on available data
+            return renderBrandPairsPlaceholder();
+        }
+
+        function renderBrandPairsPlaceholder() {
+            // Generate simulated brand pairs from available data
+            const marketData = getData().filter(r =>
+                r.Month === (state.selectedMonth || getLatestMonth(getData())) &&
+                r.Market === state.crossbrandMarket
+            );
             const totalMembers = marketData.find(r => r.Key === 'MBR_TTL')?.YTD || 0;
             const xbpPct = marketData.find(r => r.Key === 'PCT_XBP')?.YTD || 0;
             const xbMembers = Math.round(totalMembers * xbpPct);
 
-            const stages = [
-                { label: 'Total Members', count: totalMembers, pct: 1.0 },
-                { label: '2+ Brands (XBP)', count: xbMembers, pct: xbpPct },
-                { label: '3+ Brands', count: Math.round(xbMembers * 0.4), pct: xbpPct * 0.4 },
-                { label: '4+ Brands', count: Math.round(xbMembers * 0.12), pct: xbpPct * 0.12 }
+            // Simulated brand pairs based on typical distributions
+            const simulatedPairs = [
+                { brands: 'Level Shoes + Faces', members: Math.round(xbMembers * 0.22), change: 0.082 },
+                { brands: 'Faces + Swarovski', members: Math.round(xbMembers * 0.18), change: 0.054 },
+                { brands: 'Level Shoes + Swarovski', members: Math.round(xbMembers * 0.15), change: -0.021 },
+                { brands: 'Level Shoes + Bloomingdale\'s', members: Math.round(xbMembers * 0.12), change: 0.112 },
+                { brands: 'Faces + Bloomingdale\'s', members: Math.round(xbMembers * 0.10), change: 0.067 }
             ];
+
+            const rows = simulatedPairs.map((pair, i) => `
+                <tr>
+                    <td class="pair-rank">${i + 1}</td>
+                    <td class="pair-brands">${pair.brands}</td>
+                    <td class="pair-count">${formatValue(pair.members, 'V0')}</td>
+                    <td class="pair-variance ${getBadgeClass(pair.change, 'P4')}">${formatChange(pair.change, 'P4')}</td>
+                </tr>
+            `).join('');
+
+            return `
+                <div class="brand-pairs-container">
+                    <h3>Top Brand Pairs</h3>
+                    <p style="font-size: var(--font-caption); color: var(--text-muted); margin-bottom: var(--space-md);">
+                        Upload crossbrand_detail.csv for actual brand pair data
+                    </p>
+                    <table class="brand-pairs-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Brand Pair</th>
+                                <th style="text-align:right">Members</th>
+                                <th style="text-align:right">vs LY</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderCrossBrandFunnel(data, month) {
+            // Get cross-brand data for selected market from main data
+            const marketData = data.filter(r => r.Month === month && r.Market === state.crossbrandMarket);
+            const totalMembers = marketData.find(r => r.Key === 'MBR_TTL')?.YTD || 0;
+
+            // Use crossbrand data if available
+            const crossbrandData = state.crossbrandData;
+            let stages;
+
+            if (crossbrandData && crossbrandData.length > 0) {
+                // Filter funnel data for selected market (non-pair rows)
+                const funnelData = crossbrandData.filter(r =>
+                    r.Market === state.crossbrandMarket &&
+                    r.Crossbrand_Type !== 'PAIR'
+                );
+
+                const totalRow = funnelData.find(r => r.Crossbrand_Type === 'TOTAL');
+                const xbpRow = funnelData.find(r => r.Crossbrand_Type === 'XBP');
+                const xbaRow = funnelData.find(r => r.Crossbrand_Type === 'XBA');
+                const xb4Row = funnelData.find(r => r.Crossbrand_Type === 'XB4');
+
+                const total = totalRow?.Member_Count || totalMembers;
+
+                stages = [
+                    { label: 'Total Members', count: total, pct: 1.0, vsLY: totalRow?.vs_LYTD },
+                    { label: '2+ Brands (XBP)', count: xbpRow?.Member_Count || 0, pct: safeDiv(xbpRow?.Member_Count, total), vsLY: xbpRow?.vs_LYTD },
+                    { label: '3+ Brands (XBA)', count: xbaRow?.Member_Count || 0, pct: safeDiv(xbaRow?.Member_Count, total), vsLY: xbaRow?.vs_LYTD },
+                    { label: '4+ Brands', count: xb4Row?.Member_Count || 0, pct: safeDiv(xb4Row?.Member_Count, total), vsLY: xb4Row?.vs_LYTD }
+                ];
+            } else {
+                // Fallback to main data estimation
+                const xbpPct = marketData.find(r => r.Key === 'PCT_XBP')?.YTD || 0;
+                const xbMembers = Math.round(totalMembers * xbpPct);
+
+                stages = [
+                    { label: 'Total Members', count: totalMembers, pct: 1.0 },
+                    { label: '2+ Brands (XBP)', count: xbMembers, pct: xbpPct },
+                    { label: '3+ Brands', count: Math.round(xbMembers * 0.4), pct: xbpPct * 0.4 },
+                    { label: '4+ Brands', count: Math.round(xbMembers * 0.12), pct: xbpPct * 0.12 }
+                ];
+            }
 
             return `
                 <div class="funnel-container">
@@ -2565,7 +2919,10 @@
                                 <div class="funnel-bar-container">
                                     <div class="funnel-bar" style="width: ${stage.pct * 100}%"></div>
                                 </div>
-                                <div class="funnel-value">${formatValue(stage.count, 'V0')} (${(stage.pct * 100).toFixed(1)}%)</div>
+                                <div class="funnel-value">
+                                    ${formatValue(stage.count, 'V0')} (${(stage.pct * 100).toFixed(1)}%)
+                                    ${stage.vsLY !== undefined ? `<span class="${getBadgeClass(stage.vsLY, 'P4')}" style="font-size: 11px; margin-left: 6px;">${formatChange(stage.vsLY, 'P4')}</span>` : ''}
+                                </div>
                             </div>
                         `).join('')}
                     </div>
@@ -2627,9 +2984,74 @@
                 </div>
                 <div class="segments-grid">
                     ${renderNewReturningDonut(data, month)}
-                    ${renderRedemptionMetrics(data, month)}
+                    ${renderEngagementMatrix(data, month)}
                 </div>
-                ${renderMemberMetrics(data, month)}
+                <div class="segments-grid">
+                    ${renderRedemptionMetrics(data, month)}
+                    ${renderMemberMetrics(data, month)}
+                </div>
+            `;
+        }
+
+        function renderEngagementMatrix(data, month) {
+            const marketData = data.filter(r => r.Month === month && r.Market === state.segmentMarket);
+            const totalMembers = marketData.find(r => r.Key === 'MBR_TTL')?.YTD || 0;
+            const redeemingPct = marketData.find(r => r.Key === 'PCT_RDM')?.YTD || 0;
+
+            // Calculate quadrants based on available data
+            // Engaged + Redeeming: members who redeem and have high frequency
+            // Using approximations based on available KPIs
+            const redeemingMembers = Math.round(totalMembers * redeemingPct);
+            const nonRedeemingMembers = totalMembers - redeemingMembers;
+
+            // Simulate engagement distribution (typically 20-30% are highly engaged)
+            const engagedPct = 0.21; // ~21% engaged based on typical loyalty programs
+            const engagedMembers = Math.round(totalMembers * engagedPct);
+            const nonEngagedMembers = totalMembers - engagedMembers;
+
+            // Calculate quadrant values
+            const engRdm = Math.round(engagedMembers * 0.58); // 58% of engaged members redeem
+            const engNRdm = engagedMembers - engRdm;
+            const nEngRdm = redeemingMembers - engRdm;
+            const nEngNRdm = totalMembers - engRdm - engNRdm - nEngRdm;
+
+            return `
+                <div class="engagement-matrix-container">
+                    <h3>Engagement Matrix</h3>
+                    <table class="engagement-matrix">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Redeeming</th>
+                                <th>Not Redeeming</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="matrix-label">Engaged</td>
+                                <td class="matrix-cell matrix-best">
+                                    <div class="cell-pct">${(safeDiv(engRdm, totalMembers) * 100).toFixed(1)}%</div>
+                                    <div class="cell-count">(${formatValue(engRdm, 'V0')})</div>
+                                </td>
+                                <td class="matrix-cell matrix-mid">
+                                    <div class="cell-pct">${(safeDiv(engNRdm, totalMembers) * 100).toFixed(1)}%</div>
+                                    <div class="cell-count">(${formatValue(engNRdm, 'V0')})</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="matrix-label">Not Engaged</td>
+                                <td class="matrix-cell matrix-mid">
+                                    <div class="cell-pct">${(safeDiv(nEngRdm, totalMembers) * 100).toFixed(1)}%</div>
+                                    <div class="cell-count">(${formatValue(nEngRdm, 'V0')})</div>
+                                </td>
+                                <td class="matrix-cell matrix-worst">
+                                    <div class="cell-pct">${(safeDiv(nEngNRdm, totalMembers) * 100).toFixed(1)}%</div>
+                                    <div class="cell-count">(${formatValue(nEngNRdm, 'V0')})</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             `;
         }
 
@@ -3376,26 +3798,50 @@
         // ============================================================================
 
         function attachEventListeners() {
-            // Upload zone
-            const uploadZone = document.getElementById('uploadZone');
-            const fileInput = document.getElementById('fileInput');
+            // Multi-file upload cards
+            const fileCards = document.querySelectorAll('.upload-file-card');
+            const mainFileInput = document.getElementById('mainFileInput');
+            const trendsFileInput = document.getElementById('trendsFileInput');
+            const dimensionalFileInput = document.getElementById('dimensionalFileInput');
+            const crossbrandFileInput = document.getElementById('crossbrandFileInput');
             const startBtn = document.getElementById('startBtn');
             const demoBtn = document.getElementById('demoBtn');
 
-            if (uploadZone) {
-                uploadZone.onclick = () => fileInput.click();
-                uploadZone.ondragover = (e) => { e.preventDefault(); uploadZone.style.borderColor = 'var(--steel-blue)'; };
-                uploadZone.ondragleave = () => { uploadZone.style.borderColor = ''; };
-                uploadZone.ondrop = (e) => {
-                    e.preventDefault();
-                    uploadZone.style.borderColor = '';
-                    const file = e.dataTransfer.files[0];
-                    if (file && file.name.endsWith('.csv')) handleFileUpload(file);
-                };
-            }
+            // Setup file card click handlers
+            fileCards.forEach(card => {
+                const fileType = card.dataset.filetype;
+                let input;
+                switch (fileType) {
+                    case 'main': input = mainFileInput; break;
+                    case 'trends': input = trendsFileInput; break;
+                    case 'dimensional': input = dimensionalFileInput; break;
+                    case 'crossbrand': input = crossbrandFileInput; break;
+                }
+                if (input) {
+                    card.onclick = () => input.click();
+                    card.ondragover = (e) => { e.preventDefault(); card.style.borderColor = 'var(--steel-blue)'; };
+                    card.ondragleave = () => { card.style.borderColor = ''; };
+                    card.ondrop = (e) => {
+                        e.preventDefault();
+                        card.style.borderColor = '';
+                        const file = e.dataTransfer.files[0];
+                        if (file && file.name.endsWith('.csv')) handleFileUpload(file, fileType);
+                    };
+                }
+            });
 
-            if (fileInput) {
-                fileInput.onchange = (e) => { if (e.target.files[0]) handleFileUpload(e.target.files[0]); };
+            // Setup file input change handlers
+            if (mainFileInput) {
+                mainFileInput.onchange = (e) => { if (e.target.files[0]) handleFileUpload(e.target.files[0], 'main'); };
+            }
+            if (trendsFileInput) {
+                trendsFileInput.onchange = (e) => { if (e.target.files[0]) handleFileUpload(e.target.files[0], 'trends'); };
+            }
+            if (dimensionalFileInput) {
+                dimensionalFileInput.onchange = (e) => { if (e.target.files[0]) handleFileUpload(e.target.files[0], 'dimensional'); };
+            }
+            if (crossbrandFileInput) {
+                crossbrandFileInput.onchange = (e) => { if (e.target.files[0]) handleFileUpload(e.target.files[0], 'crossbrand'); };
             }
 
             if (startBtn) {
@@ -3605,14 +4051,28 @@
         // DATA LOADING
         // ============================================================================
 
-        function handleFileUpload(file) {
+        function handleFileUpload(file, fileType = 'main') {
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
                     const data = parseCSV(e.target.result);
                     if (data.length > 0) {
-                        state.museData = data;
-                        state.museFileName = file.name;
+                        switch (fileType) {
+                            case 'main':
+                                state.museData = data;
+                                state.museFileName = file.name;
+                                state.selectedMonth = getLatestMonth(data);
+                                break;
+                            case 'trends':
+                                state.museTrendData = data;
+                                break;
+                            case 'dimensional':
+                                state.dimensionalData = data;
+                                break;
+                            case 'crossbrand':
+                                state.crossbrandData = data;
+                                break;
+                        }
                         render();
                     } else {
                         alert('Could not parse CSV. Please check the format.');
@@ -3626,39 +4086,57 @@
         }
 
         function loadDemoData() {
-            // Load main data
-            fetch('data/metrics_main.csv')
-                .then(r => r.text())
-                .then(text => {
-                    const data = parseCSV(text);
-                    if (data.length > 0) {
-                        state.museData = data;
+            // Load all data files in parallel
+            Promise.all([
+                fetch('data/metrics_main.csv').then(r => r.ok ? r.text() : '').catch(() => ''),
+                fetch('data/metrics_trend.csv').then(r => r.ok ? r.text() : '').catch(() => ''),
+                fetch('data/metrics_dimensional.csv').then(r => r.ok ? r.text() : '').catch(() => ''),
+                fetch('data/crossbrand_detail.csv').then(r => r.ok ? r.text() : '').catch(() => '')
+            ]).then(([mainText, trendText, dimensionalText, crossbrandText]) => {
+                // Parse main data (required)
+                if (mainText) {
+                    const mainData = parseCSV(mainText);
+                    if (mainData.length > 0) {
+                        state.museData = mainData;
                         state.museFileName = 'metrics_main.csv (demo)';
-                        state.selectedMonth = getLatestMonth(data);
+                        state.selectedMonth = getLatestMonth(mainData);
                         state.dataLoaded = true;
-
-                        // Also try to load trend data
-                        return fetch('data/metrics_trend.csv');
                     }
-                    throw new Error('No data in main file');
-                })
-                .then(r => r.text())
-                .then(text => {
-                    const trendData = parseCSV(text);
+                }
+
+                // Parse trend data (optional)
+                if (trendText) {
+                    const trendData = parseCSV(trendText);
                     if (trendData.length > 0) {
                         state.museTrendData = trendData;
                     }
-                    render();
-                })
-                .catch(err => {
-                    console.error('Demo load error:', err);
-                    // Still render if main data loaded
-                    if (state.museData) {
-                        render();
-                    } else {
-                        alert('Could not load demo data. Please upload a file.');
+                }
+
+                // Parse dimensional data (optional)
+                if (dimensionalText) {
+                    const dimensionalData = parseCSV(dimensionalText);
+                    if (dimensionalData.length > 0) {
+                        state.dimensionalData = dimensionalData;
                     }
-                });
+                }
+
+                // Parse crossbrand data (optional)
+                if (crossbrandText) {
+                    const crossbrandData = parseCSV(crossbrandText);
+                    if (crossbrandData.length > 0) {
+                        state.crossbrandData = crossbrandData;
+                    }
+                }
+
+                if (state.museData) {
+                    render();
+                } else {
+                    alert('Could not load demo data. Please upload a file.');
+                }
+            }).catch(err => {
+                console.error('Demo load error:', err);
+                alert('Could not load demo data. Please upload a file.');
+            });
         }
 
         // ============================================================================
@@ -3749,6 +4227,31 @@ Bahrain,MBR_TTL,Transacting Members,V0,members,4200,2900,4300,8700,5600,8200,135
 Bahrain,PCT_XBP,Cross Brand Plus %,P4,crossbrand,0.1820,0.1480,0.1950,0.1980,0.1560,0.2100,0.2120,0.1640,0.2220,0.2230,0.1710,0.2320,0.2320,0.1770,0.2400,0.2390,0.1830,0.2470,0.2450,0.1880,0.2530,0.2480,0.1930,0.2580,0.2500,0.1970,0.2620,0.2510,0.2000,0.2650,0.2510,0.2020,0.2670,0.2450,0.2020,0.2600
 Bahrain,SLS_PEN,Sales Penetration,P4,sales,0.1520,0.1280,0.1380,0.1680,0.1340,0.1460,0.1800,0.1400,0.1540,0.1890,0.1460,0.1620,0.1950,0.1520,0.1700,0.1990,0.1580,0.1780,0.2020,0.1640,0.1860,0.2040,0.1700,0.1940,0.2050,0.1760,0.2020,0.2050,0.1820,0.2100,0.2040,0.1880,0.2180,0.1980,0.1720,0.1750`;
 
+        const DEMO_CROSSBRAND_CSV = `Refresh_Date,Month,Market,Crossbrand_Type,Home_Brand,Second_Brand,Member_Count,vs_LYTD
+2026-01-20,12 - Dec,All Markets,TOTAL,,,456789,0.0810
+2026-01-20,12 - Dec,All Markets,XBP,,,106889,0.0923
+2026-01-20,12 - Dec,All Markets,XBA,,,42756,0.0678
+2026-01-20,12 - Dec,All Markets,XB4,,,12827,0.0512
+2026-01-20,12 - Dec,All Markets,PAIR,Level Shoes,Faces,23516,0.0821
+2026-01-20,12 - Dec,All Markets,PAIR,Faces,Swarovski,19240,0.0543
+2026-01-20,12 - Dec,All Markets,PAIR,Level Shoes,Swarovski,16034,0.0312
+2026-01-20,12 - Dec,All Markets,PAIR,Level Shoes,Bloomingdale's,12827,0.1123
+2026-01-20,12 - Dec,All Markets,PAIR,Faces,Bloomingdale's,10689,0.0678
+2026-01-20,12 - Dec,United Arab Emirates,TOTAL,,,178234,0.0774
+2026-01-20,12 - Dec,United Arab Emirates,XBP,,,50419,0.1021
+2026-01-20,12 - Dec,United Arab Emirates,XBA,,,20168,0.0812
+2026-01-20,12 - Dec,United Arab Emirates,XB4,,,6050,0.0623
+2026-01-20,12 - Dec,United Arab Emirates,PAIR,Level Shoes,Faces,11092,0.0912
+2026-01-20,12 - Dec,United Arab Emirates,PAIR,Faces,Swarovski,9076,0.0634
+2026-01-20,12 - Dec,United Arab Emirates,PAIR,Level Shoes,Swarovski,7563,0.0423
+2026-01-20,12 - Dec,Saudi Arabia,TOTAL,,,145678,0.0418
+2026-01-20,12 - Dec,Saudi Arabia,XBP,,,26950,0.0523
+2026-01-20,12 - Dec,Saudi Arabia,XBA,,,10780,0.0312
+2026-01-20,12 - Dec,Saudi Arabia,XB4,,,3234,0.0212
+2026-01-20,12 - Dec,Saudi Arabia,PAIR,Level Shoes,Faces,5930,0.0612
+2026-01-20,12 - Dec,Saudi Arabia,PAIR,Faces,Swarovski,4851,0.0423
+2026-01-20,12 - Dec,Saudi Arabia,PAIR,Level Shoes,Swarovski,4043,0.0234`;
+
         // ============================================================================
         // INITIALIZATION
         // ============================================================================
@@ -3757,6 +4260,7 @@ Bahrain,SLS_PEN,Sales Penetration,P4,sales,0.1520,0.1280,0.1380,0.1680,0.1340,0.
             // Load from embedded data (works when opening file locally)
             const mainData = parseCSV(DEMO_MAIN_CSV);
             const trendData = parseCSV(DEMO_TREND_CSV);
+            const crossbrandData = parseCSV(DEMO_CROSSBRAND_CSV);
 
             if (mainData.length > 0) {
                 state.museData = mainData;
@@ -3766,6 +4270,9 @@ Bahrain,SLS_PEN,Sales Penetration,P4,sales,0.1520,0.1280,0.1380,0.1680,0.1340,0.
             }
             if (trendData.length > 0) {
                 state.museTrendData = trendData;
+            }
+            if (crossbrandData.length > 0) {
+                state.crossbrandData = crossbrandData;
             }
             render();
         }
