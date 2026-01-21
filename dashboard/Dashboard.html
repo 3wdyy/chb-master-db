@@ -432,6 +432,26 @@
             opacity: 1;
         }
 
+        .hero-card.card-positive {
+            border-top-color: var(--positive);
+        }
+
+        .hero-card.card-positive::before {
+            background: linear-gradient(90deg, var(--positive) 0%, var(--positive-light) 100%);
+        }
+
+        .hero-card.card-negative {
+            border-top-color: var(--negative);
+        }
+
+        .hero-card.card-negative::before {
+            background: linear-gradient(90deg, var(--negative) 0%, var(--negative-light) 100%);
+        }
+
+        .hero-card.card-neutral {
+            border-top-color: var(--neutral);
+        }
+
         .hero-card-label {
             font-size: var(--font-label);
             color: var(--text-muted);
@@ -644,6 +664,22 @@
             box-shadow: var(--shadow-md);
         }
 
+        .insight-row.insight-critical {
+            border-left: 3px solid var(--negative);
+        }
+
+        .insight-row.insight-warning {
+            border-left: 3px solid var(--warning);
+        }
+
+        .insight-row.insight-positive {
+            border-left: 3px solid var(--positive);
+        }
+
+        .insight-row.insight-info {
+            border-left: 3px solid var(--steel-blue);
+        }
+
         .insight-icon {
             font-size: var(--font-body-lg);
             flex-shrink: 0;
@@ -672,13 +708,25 @@
 
         .market-bar-row {
             display: grid;
-            grid-template-columns: 150px 1fr 120px;
+            grid-template-columns: 150px 1fr 100px 100px;
             align-items: center;
             gap: var(--space-md);
             padding: var(--space-md);
             background: var(--white);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .market-bar-row:hover {
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .market-bar-value {
+            font-weight: var(--weight-bold);
+            color: var(--navy);
+            text-align: right;
         }
 
         .market-bar-label {
@@ -795,6 +843,48 @@
             color: var(--text-muted);
         }
 
+        .heatmap-header-cell {
+            background: var(--navy);
+            color: white;
+            font-size: 10px;
+            font-weight: var(--weight-semibold);
+        }
+
+        .heatmap-legend {
+            display: flex;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-caption);
+            color: var(--text-muted);
+        }
+
+        .heatmap-legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .heatmap-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .heatmap-dot.heatmap-positive {
+            background: var(--positive-light);
+            border: 1px solid var(--positive);
+        }
+
+        .heatmap-dot.heatmap-warning {
+            background: var(--warning-light);
+            border: 1px solid var(--warning);
+        }
+
+        .heatmap-dot.heatmap-negative {
+            background: var(--negative-light);
+            border: 1px solid var(--negative);
+        }
+
         /* Trend Chart */
         .trend-chart {
             background: var(--white);
@@ -837,8 +927,39 @@
         }
 
         .legend-dot.current { background: var(--navy); }
-        .legend-dot.lastyear { background: var(--text-muted); stroke-dasharray: 5, 5; }
+        .legend-dot.lastyear { background: var(--text-muted); }
         .legend-dot.target { background: var(--positive); }
+
+        .legend-line {
+            width: 24px;
+            height: 3px;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .legend-line.current {
+            background: var(--steel-blue);
+        }
+
+        .legend-line.lastyear {
+            background: repeating-linear-gradient(
+                90deg,
+                var(--text-muted) 0px,
+                var(--text-muted) 8px,
+                transparent 8px,
+                transparent 12px
+            );
+        }
+
+        .legend-line.target {
+            background: repeating-linear-gradient(
+                90deg,
+                var(--navy) 0px,
+                var(--navy) 4px,
+                transparent 4px,
+                transparent 8px
+            );
+        }
 
         .chart-svg {
             width: 100%;
@@ -890,6 +1011,19 @@
 
         .tooltip-value {
             font-weight: var(--weight-semibold);
+        }
+
+        .tooltip-change {
+            font-size: var(--font-micro);
+            margin-left: var(--space-xs);
+        }
+
+        .tooltip-change.positive {
+            color: var(--positive-light);
+        }
+
+        .tooltip-change.negative {
+            color: var(--negative-light);
         }
 
         /* Upload Screen */
@@ -1265,6 +1399,7 @@
             comparisonMode: 'LYTD',          // 'LYTD' | 'Target' | 'LMR12M'
             activeTab: 'scorecard',          // 'scorecard' | 'markets' | 'trends'
             insightsPanelExpanded: true,
+            chartType: 'monthly',            // 'monthly' | 'cumulative'
 
             // Data state
             dataLoaded: false,
@@ -1771,17 +1906,36 @@
 
                 const variance = getVariance(row, state.comparisonMode);
                 const badgeClass = getBadgeClass(variance, row.Format);
+                const cardClass = `card-${badgeClass}`;
+
+                // Get comparison value for context
+                let comparisonValue = null;
+                let comparisonLabel = '';
+                switch (state.comparisonMode) {
+                    case 'LYTD':
+                        comparisonValue = row.LYTD;
+                        comparisonLabel = 'LYTD';
+                        break;
+                    case 'Target':
+                        comparisonValue = row.Target;
+                        comparisonLabel = 'Target';
+                        break;
+                    case 'LMR12M':
+                        comparisonValue = row.LMR12M;
+                        comparisonLabel = 'LM R12M';
+                        break;
+                }
 
                 return `
-                    <div class="hero-card animate-fade-in-up stagger-${i+1}">
+                    <div class="hero-card ${cardClass} animate-fade-in-up stagger-${i+1}">
                         <div class="hero-card-label">${config.name.toUpperCase()}</div>
                         <div class="hero-card-value">${formatValue(row.YTD, row.Format)}</div>
                         <div class="hero-card-badge ${badgeClass}">
                             ${formatChange(variance, row.Format)} ${getComparisonLabel(state.comparisonMode)}
                         </div>
-                        ${row.Target ? `
+                        ${comparisonValue !== null ? `
                             <div class="hero-card-secondary">
-                                Target: ${formatValue(row.Target, row.Format)}
+                                ${comparisonLabel}: ${formatValue(comparisonValue, row.Format)}
                             </div>
                         ` : ''}
                     </div>
@@ -1794,7 +1948,7 @@
         function renderInsightsPanel(insights) {
             const insightRows = insights.length > 0
                 ? insights.map(insight => `
-                    <div class="insight-row">
+                    <div class="insight-row insight-${insight.severity}">
                         <span class="insight-icon">${insight.icon}</span>
                         <span class="insight-text">${insight.message}</span>
                     </div>
@@ -1905,6 +2059,14 @@
                             `).join('')}
                         </select>
                     </div>
+                    <div class="filter-group">
+                        <label>Compare To</label>
+                        <select class="filter-select" id="comparisonSelect">
+                            <option value="LYTD" ${state.comparisonMode === 'LYTD' ? 'selected' : ''}>vs Last Year</option>
+                            <option value="Target" ${state.comparisonMode === 'Target' ? 'selected' : ''}>vs Target</option>
+                            <option value="LMR12M" ${state.comparisonMode === 'LMR12M' ? 'selected' : ''}>vs R12M</option>
+                        </select>
+                    </div>
                 </div>
             `;
         }
@@ -1934,6 +2096,7 @@
                         <div class="market-bar-container">
                             <div class="market-bar-fill" style="width: ${width}%"></div>
                         </div>
+                        <div class="market-bar-value">${formatValue(row.YTD, row.Format)}</div>
                         <div class="market-bar-badge ${badgeClass}">
                             ${formatChange(variance, row.Format)}
                         </div>
@@ -1953,7 +2116,7 @@
 
             // Header row
             const headerCells = markets.map(m =>
-                `<div class="heatmap-cell" style="background: var(--navy); color: white; font-size: 10px;">${m.substring(0, 6)}</div>`
+                `<div class="heatmap-cell heatmap-header-cell">${m.substring(0, 6)}</div>`
             ).join('');
 
             // Data rows
@@ -1965,8 +2128,19 @@
 
                     const cellClass = getHeatmapClass(row.vs_Target);
                     const displayValue = formatChange(row.vs_Target, row.Format);
+                    const ytdValue = formatValue(row.YTD, row.Format);
+                    const targetValue = row.Target ? formatValue(row.Target, row.Format) : 'N/A';
 
-                    return `<div class="heatmap-cell ${cellClass}" title="${market}: ${displayValue}">${displayValue}</div>`;
+                    // Build tooltip content
+                    const tooltipText = `${market}\n${config.name}\nYTD: ${ytdValue}\nTarget: ${targetValue}\nvs Target: ${displayValue}`;
+
+                    return `<div class="heatmap-cell ${cellClass}"
+                        title="${tooltipText}"
+                        data-market="${market}"
+                        data-kpi="${config.name}"
+                        data-ytd="${ytdValue}"
+                        data-target="${targetValue}"
+                        data-variance="${displayValue}">${displayValue}</div>`;
                 }).join('');
 
                 return `
@@ -1980,6 +2154,11 @@
             return `
                 <div class="heatmap">
                     <div class="heatmap-title">Performance vs Target Heatmap</div>
+                    <div class="heatmap-legend">
+                        <span class="heatmap-legend-item"><span class="heatmap-dot heatmap-positive"></span> On/Above Target</span>
+                        <span class="heatmap-legend-item"><span class="heatmap-dot heatmap-warning"></span> Slightly Below (-5% to 0%)</span>
+                        <span class="heatmap-legend-item"><span class="heatmap-dot heatmap-negative"></span> Below Target (&lt;-5%)</span>
+                    </div>
                     <div class="heatmap-grid">
                         <div class="heatmap-row">
                             <div class="heatmap-header"></div>
@@ -2032,6 +2211,13 @@
                             `).join('')}
                         </select>
                     </div>
+                    <div class="filter-group">
+                        <label>Chart Type</label>
+                        <select class="filter-select" id="chartTypeSelect">
+                            <option value="monthly" ${state.chartType === 'monthly' ? 'selected' : ''}>Monthly Values</option>
+                            <option value="cumulative" ${state.chartType === 'cumulative' ? 'selected' : ''}>YTD Cumulative</option>
+                        </select>
+                    </div>
                 </div>
             `;
         }
@@ -2068,46 +2254,63 @@
                 return renderTrendPlaceholder();
             }
 
+            // For cumulative chart, calculate running totals
+            let chartData = validMonths;
+            if (state.chartType === 'cumulative') {
+                let cumYtd = 0, cumLytd = 0, cumTarget = 0;
+                chartData = validMonths.map(m => {
+                    cumYtd += m.ytd || 0;
+                    cumLytd += m.lytd || 0;
+                    cumTarget += m.target || 0;
+                    return {
+                        ...m,
+                        ytd: cumYtd,
+                        lytd: cumLytd,
+                        target: m.target !== null ? cumTarget : null
+                    };
+                });
+            }
+
             // Chart dimensions
             const width = 800;
             const height = 300;
-            const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+            const padding = { top: 20, right: 20, bottom: 40, left: 70 };
             const chartWidth = width - padding.left - padding.right;
             const chartHeight = height - padding.top - padding.bottom;
 
             // Calculate scales
-            const allValues = validMonths.flatMap(m => [m.ytd, m.lytd, m.target].filter(v => v !== null));
+            const allValues = chartData.flatMap(m => [m.ytd, m.lytd, m.target].filter(v => v !== null));
             const minVal = Math.min(...allValues) * 0.9;
             const maxVal = Math.max(...allValues) * 1.1;
 
-            const xScale = (i) => padding.left + (i / (validMonths.length - 1)) * chartWidth;
+            const xScale = (i) => padding.left + (i / (chartData.length - 1)) * chartWidth;
             const yScale = (v) => padding.top + chartHeight - ((v - minVal) / (maxVal - minVal)) * chartHeight;
 
             // Generate paths
-            const ytdPath = validMonths.map((m, i) =>
+            const ytdPath = chartData.map((m, i) =>
                 `${i === 0 ? 'M' : 'L'} ${xScale(i)} ${yScale(m.ytd)}`
             ).join(' ');
 
-            const lytdPath = validMonths.map((m, i) =>
+            const lytdPath = chartData.map((m, i) =>
                 `${i === 0 ? 'M' : 'L'} ${xScale(i)} ${yScale(m.lytd)}`
             ).join(' ');
 
-            const targetPath = validMonths.filter(m => m.target !== null).map((m, i) =>
-                `${i === 0 ? 'M' : 'L'} ${xScale(validMonths.indexOf(m))} ${yScale(m.target)}`
+            const targetPath = chartData.filter(m => m.target !== null).map((m, i) =>
+                `${i === 0 ? 'M' : 'L'} ${xScale(chartData.indexOf(m))} ${yScale(m.target)}`
             ).join(' ');
 
-            // Generate dots
-            const dots = validMonths.map((m, i) => `
-                <circle class="chart-dot" cx="${xScale(i)}" cy="${yScale(m.ytd)}" r="5" fill="var(--navy)"
+            // Generate dots for current year line
+            const dots = chartData.map((m, i) => `
+                <circle class="chart-dot" cx="${xScale(i)}" cy="${yScale(m.ytd)}" r="5" fill="var(--steel-blue)"
                     data-info='${JSON.stringify({ month: m.label, ytd: m.ytd, lytd: m.lytd, target: m.target, format: config.format })}'/>
             `).join('');
 
             // X-axis labels
-            const xLabels = validMonths.map((m, i) => `
+            const xLabels = chartData.map((m, i) => `
                 <text x="${xScale(i)}" y="${height - 10}" text-anchor="middle" fill="var(--text-muted)" font-size="12">${m.label}</text>
             `).join('');
 
-            // Y-axis (simple)
+            // Y-axis
             const yTicks = 5;
             const yLabels = Array.from({ length: yTicks }, (_, i) => {
                 const value = minVal + (maxVal - minVal) * (i / (yTicks - 1));
@@ -2118,22 +2321,24 @@
                 `;
             }).join('');
 
+            const chartTitle = state.chartType === 'cumulative' ? 'YTD Cumulative Trend' : 'Monthly Trend';
+
             return `
                 <div class="trend-chart animate-fade-in">
                     <div class="trend-chart-header">
-                        <div class="trend-chart-title">Monthly Trend</div>
+                        <div class="trend-chart-title">${chartTitle}</div>
                         <div class="trend-legend">
-                            <div class="legend-item"><div class="legend-dot current"></div> ${CURRENT_YEAR}</div>
-                            <div class="legend-item"><div class="legend-dot lastyear"></div> ${PREVIOUS_YEAR}</div>
-                            <div class="legend-item"><div class="legend-dot target"></div> Target</div>
+                            <div class="legend-item"><div class="legend-line current"></div> ${CURRENT_YEAR}</div>
+                            <div class="legend-item"><div class="legend-line lastyear"></div> ${PREVIOUS_YEAR}</div>
+                            <div class="legend-item"><div class="legend-line target"></div> Target</div>
                         </div>
                     </div>
                     <svg class="chart-svg" viewBox="0 0 ${width} ${height}">
                         ${yLabels}
                         ${xLabels}
-                        ${targetPath ? `<path d="${targetPath}" fill="none" stroke="var(--positive)" stroke-width="2" stroke-dasharray="4,4"/>` : ''}
-                        <path d="${lytdPath}" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-dasharray="5,5"/>
-                        <path d="${ytdPath}" fill="none" stroke="var(--navy)" stroke-width="3"/>
+                        ${targetPath ? `<path d="${targetPath}" fill="none" stroke="var(--navy)" stroke-width="2" stroke-dasharray="4,4"/>` : ''}
+                        <path d="${lytdPath}" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-dasharray="8,4"/>
+                        <path d="${ytdPath}" fill="none" stroke="var(--steel-blue)" stroke-width="3"/>
                         ${dots}
                     </svg>
                 </div>
@@ -2246,6 +2451,15 @@
                 };
             }
 
+            // Chart type selector (Trends tab)
+            const chartTypeSelect = document.getElementById('chartTypeSelect');
+            if (chartTypeSelect) {
+                chartTypeSelect.onchange = () => {
+                    state.chartType = chartTypeSelect.value;
+                    render();
+                };
+            }
+
             // Insights panel toggle
             const insightsHeader = document.getElementById('insightsHeader');
             if (insightsHeader) {
@@ -2266,6 +2480,14 @@
             dots.forEach(dot => {
                 dot.addEventListener('mouseenter', (e) => {
                     const info = JSON.parse(e.target.dataset.info);
+
+                    // Calculate variances
+                    const vsLY = info.lytd ? safeDiv(info.ytd - info.lytd, info.lytd, 0) : null;
+                    const vsTarget = info.target ? safeDiv(info.ytd - info.target, info.target, 0) : null;
+
+                    const vsLYClass = vsLY !== null ? (vsLY >= 0 ? 'positive' : 'negative') : '';
+                    const vsTargetClass = vsTarget !== null ? (vsTarget >= 0 ? 'positive' : 'negative') : '';
+
                     tooltip.innerHTML = `
                         <div class="tooltip-title">${info.month}</div>
                         <div class="tooltip-row">
@@ -2275,11 +2497,13 @@
                         <div class="tooltip-row">
                             <span class="tooltip-label">${PREVIOUS_YEAR}:</span>
                             <span class="tooltip-value">${formatValue(info.lytd, info.format)}</span>
+                            ${vsLY !== null ? `<span class="tooltip-change ${vsLYClass}">(${formatChange(vsLY, info.format)})</span>` : ''}
                         </div>
                         ${info.target ? `
                         <div class="tooltip-row">
                             <span class="tooltip-label">Target:</span>
                             <span class="tooltip-value">${formatValue(info.target, info.format)}</span>
+                            ${vsTarget !== null ? `<span class="tooltip-change ${vsTargetClass}">(${formatChange(vsTarget, info.format)})</span>` : ''}
                         </div>
                         ` : ''}
                     `;
